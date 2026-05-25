@@ -1,0 +1,35 @@
+:root {
+  /* Color */
+  --color-bg: #FFFFFF;
+  --color-fg: #000000;
+  --color-accent: #B11515;
+  --color-muted: rgba(0, 0, 0, 0.6);
+
+  /* Fonts */
+  --font-display: 'Big Shoulders Display', 'Anton', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Reference viewport (carousel measurements are pinned to this) */
+  --ref-viewport-w: 1440px;
+  --ref-viewport-h: 900px;
+
+  /* Easings */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
