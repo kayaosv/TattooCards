@@ -18,14 +18,23 @@ export const Carousel = () => {
 
   useEffect(() => {
     let t;
+    const updateScale = () => {
+      scaleRef.current = getViewportScale(window.innerWidth, window.innerHeight);
+    };
     const onResize = () => {
       clearTimeout(t);
-      t = setTimeout(() => {
-        scaleRef.current = getViewportScale(window.innerWidth, window.innerHeight);
-      }, 200);
+      t = setTimeout(updateScale, 200);
+    };
+    const onVisibility = () => {
+      if (!document.hidden) updateScale();
     };
     window.addEventListener('resize', onResize);
-    return () => { window.removeEventListener('resize', onResize); clearTimeout(t); };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
+      clearTimeout(t);
+    };
   }, []);
 
   useGSAP(() => {

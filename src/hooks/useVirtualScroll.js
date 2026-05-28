@@ -37,8 +37,10 @@ export const useVirtualScroll = ({ totalSlots, sensitivity = 0.0025, smoothing =
       markScrolling();
     };
 
-    const onTick = () => {
-      pointerRef.current += (targetRef.current - pointerRef.current) * smoothing;
+    const onTick = (time, deltaTime) => {
+      const dt = Math.min(deltaTime, 100) / (1000 / 60);
+      const factor = 1 - Math.pow(1 - smoothing, dt);
+      pointerRef.current += (targetRef.current - pointerRef.current) * factor;
     };
 
     window.addEventListener('wheel', onWheel, { passive: false });
