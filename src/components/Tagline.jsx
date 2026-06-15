@@ -3,8 +3,8 @@ export const Tagline = () => {
     <h1
       className="font-display font-bold mt-[14px]"
       style={{
-        fontSize: '28.8px',
-        lineHeight: '24.48px',
+        fontSize: 'clamp(14px, 2vw, 28.8px)',
+        lineHeight: '1.2em',
         letterSpacing: 'normal',
       }}
     >

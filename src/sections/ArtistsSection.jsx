@@ -12,7 +12,7 @@ export const ArtistsSection = () => {
   return (
     <section className="relative w-full overflow-hidden bg-white text-black" style={{ height: '100dvh' }}>
       <Carousel />
-      <div className="absolute top-[58px] left-[22px] w-[473px] z-10">
+      <div className="absolute top-[44px] left-[22px] z-10" style={{ width: 'min(calc(100vw - 44px), 473px)' }}>
         <Headline />
         <Tagline />
       </div>

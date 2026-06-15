@@ -20,13 +20,12 @@ const useMedia = (query) => {
 export const App = () => {
   const isDesktop = useMedia('(min-width: 1024px)');
   const reducedMotion = useMedia('(prefers-reduced-motion: reduce)');
-  const showDesktop = isDesktop && !reducedMotion;
 
   return (
     <>
-      {showDesktop && <Cursor />}
-      <main className="w-screen min-h-screen bg-white">
-        {showDesktop ? <ArtistsSection /> : <ArtistsSectionMobile />}
+      {isDesktop && <Cursor />}
+      <main className="w-screen bg-white" style={{ minHeight: '100dvh' }}>
+        {reducedMotion ? <ArtistsSectionMobile /> : <ArtistsSection />}
       </main>
     </>
   );
