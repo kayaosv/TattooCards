@@ -10,7 +10,7 @@ export const ArtistsSection = () => {
   }, []);
 
   return (
-    <section className="relative w-full h-screen bg-white text-black overflow-hidden">
+    <section className="relative w-full overflow-hidden bg-white text-black" style={{ height: '100dvh' }}>
       <Carousel />
       <div className="absolute top-[58px] left-[22px] w-[473px] z-10">
         <Headline />

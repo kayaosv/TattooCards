@@ -10,6 +10,7 @@ export const useVirtualScroll = ({ totalSlots, sensitivity = 0.0025, smoothing =
   const pointerRef = useRef(0);
   const targetRef = useRef(0);
   const scrollTimeoutRef = useRef(null);
+  const touchYRef = useRef(0);
 
   useEffect(() => {
     const markScrolling = () => {
@@ -32,8 +33,16 @@ export const useVirtualScroll = ({ totalSlots, sensitivity = 0.0025, smoothing =
       markScrolling();
     };
 
+    const onTouchStart = (e) => {
+      touchYRef.current = e.touches[0].clientY;
+    };
+
     const onTouchMove = (e) => {
       e.preventDefault();
+      const dy = e.touches[0].clientY - touchYRef.current;
+      touchYRef.current = e.touches[0].clientY;
+      // Swipe up = advance carousel (positive target), multiply by 3 for touch feel
+      targetRef.current -= dy * sensitivity * 3;
       markScrolling();
     };
 
@@ -44,11 +53,13 @@ export const useVirtualScroll = ({ totalSlots, sensitivity = 0.0025, smoothing =
     };
 
     window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchmove', onTouchMove, { passive: false });
     gsap.ticker.add(onTick);
 
     return () => {
       window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
       gsap.ticker.remove(onTick);
       clearTimeout(scrollTimeoutRef.current);
