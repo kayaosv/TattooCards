@@ -21,3 +21,19 @@ export const FULL_SIZE_START_X = 2074;
 
 // Slots rendered simultaneously (calibrated in Phase 4).
 export const VISIBLE_SLOTS = 20;
+
+// ── Mobile cone (reference viewport 390px wide) ──────────────────────────────
+// 5 slot levels tuned for portrait phones. Slot 4 = featured card (~91% vw).
+// Scale.js multiplies all values by vw/390 so every phone size is proportional.
+export const SLOT_LEVELS_MOBILE = [
+  { slot: 0, w: 58,  h: 48,  x: -10, y: 640, tx: 0 },
+  { slot: 1, w: 107, h: 89,  x: 5,   y: 530, tx: 0 },
+  { slot: 2, w: 170, h: 142, x: 15,  y: 420, tx: 0 },
+  { slot: 3, w: 241, h: 201, x: 20,  y: 290, tx: 0 },
+  { slot: 4, w: 355, h: 296, x: 30,  y: 160, tx: 0 },
+];
+
+export const FULL_SIZE_MOBILE    = { w: 355, h: 296, y: 160 };
+export const FULL_SIZE_START_X_MOBILE = 420;   // just off right edge at 390px ref
+export const FULL_SIZE_STEP_X_MOBILE  = 365;
+export const VISIBLE_SLOTS_MOBILE     = 10;
