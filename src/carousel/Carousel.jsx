@@ -17,7 +17,9 @@ export const Carousel = () => {
   const cardRefs = useRef([]);
   const scaleRef = useRef(typeof window !== 'undefined' ? getViewportScale(window.innerWidth, window.innerHeight) : 1);
   const mobileRef = useRef(isMobileVw());
-  const pointerRef = useVirtualScroll({ totalSlots: TOTAL });
+  // Start with card[0] in the featured (biggest) slot so the first image
+  // is prominent before the user scrolls.
+  const pointerRef = useVirtualScroll({ totalSlots: TOTAL, initialPointer: TOTAL - 4 });
 
   useEffect(() => {
     let t;
@@ -57,7 +59,12 @@ export const Carousel = () => {
           el.style.width = `${layout.w * s}px`;
           el.style.height = `${layout.h * s}px`;
           el.style.transform = `translate3d(${(layout.x + layout.tx) * s}px, ${layout.y * s}px, 0)`;
-          el.style.zIndex = String(Math.round(1000 - Math.abs(rel - zPivot) * 10));
+          // Cone (rel 0→zPivot): big card on top, small behind — strictly ascending.
+          // Queue (rel > zPivot): always below the smallest cone card, descending.
+          const z = rel <= zPivot
+            ? 800 + rel * 10
+            : 800 - (rel - zPivot) * 5;
+          el.style.zIndex = String(Math.round(z));
           el.style.visibility = 'visible';
           el.style.willChange = 'transform';
         } else {

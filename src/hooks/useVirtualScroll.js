@@ -6,9 +6,9 @@ import { useScrollStore } from '../store/useScrollStore.js';
 // representing the carousel pointer (slots advanced).
 // Wheel/touch events are captured (preventDefault) and accumulated;
 // a critically damped lerp eases the pointer toward the target each frame.
-export const useVirtualScroll = ({ totalSlots, sensitivity = 0.0025, smoothing = 0.08 } = {}) => {
-  const pointerRef = useRef(0);
-  const targetRef = useRef(0);
+export const useVirtualScroll = ({ totalSlots, sensitivity = 0.0025, smoothing = 0.08, initialPointer = 0 } = {}) => {
+  const pointerRef = useRef(initialPointer);
+  const targetRef = useRef(initialPointer);
   const scrollTimeoutRef = useRef(null);
   const touchYRef = useRef(0);
 
